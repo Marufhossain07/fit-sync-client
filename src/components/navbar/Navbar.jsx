@@ -17,7 +17,7 @@ const FlowbiteNavbarbar = () => {
             <FlowbiteNavbar fluid rounded className="p-0">
                 <FlowbiteNavbar.Toggle />
                 <FlowbiteNavbar.Brand>
-                    <h3 className="self-center whitespace-nowrap text-3xl md:text-3xl lg:text-4xl text-[#003049] font-semibold font-sedan dark:text-white">Fit<span className="text-[#d62828]">Sync</span></h3>
+                    <h3 className="self-center whitespace-nowrap text-3xl md:text-3xl lg:text-4xl text-[#003049] font-bold font-sedan dark:text-white">Fit<span className="text-[#d62828]">Sync</span></h3>
                 </FlowbiteNavbar.Brand>
                 <div className="flex md:order-2">
                     {
