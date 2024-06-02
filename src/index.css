@@ -16,3 +16,11 @@
 
   border-bottom: 2px solid #d62828;
 }
+
+.news-bg{
+  background-image: url('./assets/news.jfif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}

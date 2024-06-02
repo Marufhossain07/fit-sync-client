@@ -1,5 +1,6 @@
-import { Avatar, Button, Dropdown, Navbar as FlowbiteNavbar } from "flowbite-react";
+import { Avatar,Dropdown, Navbar as FlowbiteNavbar } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
+import Button from "../button/Button";
 
 const FlowbiteNavbarbar = () => {
     const user = false
@@ -33,7 +34,7 @@ const FlowbiteNavbarbar = () => {
                             <span className="block truncate text-sm font-medium">name@flowbite.com</span>
                         </Dropdown.Header>
                         <Dropdown.Item>Log Out</Dropdown.Item>
-                    </Dropdown> : <Link to='/login'><Button>Login</Button></Link>
+                    </Dropdown> : <Link to='/login'><Button text={'Login'}></Button></Link>
                     }
                     
                     
