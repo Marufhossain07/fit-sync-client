@@ -1,12 +1,32 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
+    const [showPassword, setShowPassword] = useState(false)
     return (
         <div className="container mx-auto form-bg rounded-md py-20">
             <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-transparent text-white dark:text-gray-800">
                 <h3 className=" text-3xl md:text-3xl lg:text-5xl text-center text-white font-bold font-sedan dark:text-white mb-5">Fit<span className="text-[#d62828]">Sync</span></h3>
-                <h1 className="text-2xl font-medium border-b border-white pb-1 text-center">Please Login!</h1>
+                <h1 className="text-2xl font-medium font-inter border-b border-white pb-1 text-center">Welcome! Please Register</h1>
                 <form noValidate="" action="" className="space-y-6">
+                    <div className="relative my-6">
+                        <input
+                            id="id-l04"
+                            type="text"
+                            name="name"
+                            placeholder="Your Name"
+                            required
+                            className="peer relative h-12 w-full border-b bg-transparent border-slate-200 px-4  placeholder-transparent outline-none transition-all text-white   focus:border-emerald-500 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+
+                        />
+                        <label
+                            htmlFor="id-l04"
+                            className="absolute left-2 -top-2 z-[1] bg-transparent cursor-text px-2 font-medium text-white transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full  before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:content-['\00a0*']  peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-white peer-invalid:peer-focus:text-pink-500peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                        >
+                            Your Name
+                        </label>
+
+                    </div>
                     <div className="relative my-6">
                         <input
                             id="id-l04"
@@ -28,9 +48,9 @@ const Login = () => {
                     <div className="relative my-6">
                         <input
                             id="id-l04"
-                            type="password"
-                            name="pass"
-                            placeholder="Password"
+                            type="text"
+                            name="photo"
+                            placeholder="Photo URL"
                             required
                             className="peer relative h-12 w-full border-b bg-transparent border-slate-200 px-4  placeholder-transparent outline-none transition-all text-white   focus:border-emerald-500 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
 
@@ -39,17 +59,80 @@ const Login = () => {
                             htmlFor="id-l04"
                             className="absolute left-2 -top-2 z-[1] bg-transparent cursor-text px-2 font-medium text-white transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full  before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:content-['\00a0*']  peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-white peer-invalid:peer-focus:text-pink-500peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
                         >
-                            Password
+                            Photo URL
                         </label>
 
                     </div>
+      <div className="relative my-6">
+        <input
+          id="id-l13"
+          type={showPassword ? "text" : "password"}
+          name="id-l13"
+          placeholder="your password"
+          className="peer relative h-12 w-full border-b bg-transparent border-slate-200 px-4  placeholder-transparent outline-none transition-all text-white   focus:border-emerald-500 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+
+        />
+        <label
+          htmlFor="id-l13"
+          className="absolute left-2 -top-2 z-[1] bg-transparent cursor-text px-2 font-medium text-white transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full  before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:content-['\00a0*']  peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-white peer-invalid:peer-focus:text-pink-500peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+        >
+          Your password
+        </label>
+        {showPassword ? (
+          <svg
+            onClick={() => setShowPassword(!showPassword)}
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute top-3 right-4 h-6 w-6 cursor-pointer  peer-disabled:cursor-not-allowed text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-labelledby="title-8 description-8"
+            role="graphics-symbol"
+          >
+            <title id="title-8">Check mark icon</title>
+            <desc id="description-8">Icon description here</desc>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+            />
+          </svg>
+        ) : (
+          <svg
+            onClick={() => setShowPassword(!showPassword)}
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute top-3 right-4 h-6 w-6 cursor-pointer peer-disabled:cursor-not-allowed text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-labelledby="title-8d description-8d"
+            role="graphics-symbol"
+          >
+            <title id="title-8">Check mark icon</title>
+            <desc id="description-8">Icon description here</desc>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+            />
+          </svg>
+        )}
+      </div>
+
                     <button className="inline-flex w-full h-12 items-center justify-center gap-2 whitespace-nowrap rounded border border-white px-6 text-sm font-medium tracking-wide text-white transition duration-300 hover:border-red-600 hover:text-red-500 focus: focus:text-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:text-emerald-300 disabled:shadow-none">
-                            <span>Login</span>
-                        </button>
+                        <span>Register</span>
+                    </button>
                 </form>
                 <div className="flex items-center pt-4 space-x-1">
                     <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
-                    <p className="px-3 dark:text-gray-600">Login with social accounts</p>
+                    <p className="px-3 dark:text-gray-600">Register with social accounts</p>
                     <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
                 </div>
                 <div className="flex justify-center space-x-4">
@@ -69,12 +152,12 @@ const Login = () => {
                         </svg>
                     </button>
                 </div>
-                <p className=" text-center sm:px-6 dark:text-gray-600">Don&apos;t have an account?
-                    <Link to='/register'><a rel="noopener noreferrer" className="underline dark:text-gray-800">Register</a></Link>
+                <p className=" text-center sm:px-6 dark:text-gray-600">Already have an account?
+                    <Link to='/login'><a rel="noopener noreferrer" className="underline dark:text-gray-800">Login</a></Link>
                 </p>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default Register;
