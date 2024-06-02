@@ -24,3 +24,15 @@
   background-position: center;
   border-radius: 8px;
 }
+
+.form-bg{
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/bg-form.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg-banner{
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/bg-banner.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}

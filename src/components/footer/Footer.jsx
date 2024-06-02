@@ -24,7 +24,7 @@ export function Footer() {
                             </FlowBitefooter.LinkGroup>
                         </div>
                         <div>
-                            <FlowBitefooter.Title className="text-white text-lg" title="Address Us" />
+                            <FlowBitefooter.Title className="text-white text-lg" title="Address" />
                             <FlowBitefooter.LinkGroup col>
                             <FlowBitefooter.Link  className="text-white"><span className="flex items-center gap-1"><FaHome /> 10/A , Mirpur , Dhaka, Bangladesh</span></FlowBitefooter.Link>
                             </FlowBitefooter.LinkGroup>
