@@ -36,3 +36,7 @@
   background-size: cover;
   
 }
+
+.img-radius img {
+  border-radius: 0px;
+}

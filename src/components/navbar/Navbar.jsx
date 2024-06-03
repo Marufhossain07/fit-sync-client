@@ -37,7 +37,7 @@ const FlowbiteNavbarbar = () => {
                             <Dropdown.Item><button onClick={logOut} className='border px-4 py-3 rounded-lg hover:opacity-50 bg-black border-red-600 text-white text-lg font-medium'>
                                 Logout
                             </button></Dropdown.Item>
-                        </Dropdown> : <Link to='/login'><button className='border px-4 py-3 rounded-lg hover:opacity-50 bg-black border-red-600 text-white text-lg font-medium'>
+                        </Dropdown> : <Link to='/login'><button className='border px-4 py-3 rounded-lg hover:opacity-50 bg-[#003049]  text-white text-lg font-medium'>
                             Login
                         </button></Link>
                     }
