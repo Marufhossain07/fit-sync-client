@@ -1,12 +1,27 @@
+import { ToastContainer, toast } from "react-toastify";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 
 const Newsletter = () => {
+    const axiosPublic = useAxiosPublic();
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(e.target.name.value)
-        console.log(e.target.email.value)
-    }
+        const form  = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const newData = {name,email};
+        try{
+
+            const {data} = await axiosPublic.post('/subscribe', newData)
+            if(data?.insertedId){
+                toast('You have successfully subscribed to FitSync')
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+        }
     return (
         <div className="news-bg">
             <div className="text-center text-white rounded-lg mt-5 py-16 bg-opacity-90 bg-[#DA3C3D]">
@@ -63,6 +78,18 @@ const Newsletter = () => {
                     </form>
                 </div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </div>
     );
 };

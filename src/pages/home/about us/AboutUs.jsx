@@ -4,7 +4,6 @@ import { FaDumbbell } from "react-icons/fa";
 import { IoAccessibilitySharp } from "react-icons/io5";
 import { GrYoga } from "react-icons/gr";
 import { Link } from "react-router-dom";
-import Button from "../../../components/button/Button";
 
 const AboutUs = () => {
     return (
@@ -23,20 +22,22 @@ const AboutUs = () => {
 
                     <div className="flex flex-col md:flex-row lg:flex-row justify-around gap-5 mt-10 mb-5">
                         <div className="p-10 border-2 flex flex-col items-center border-red-600">
-                        <FaDumbbell  className="text-3xl"/>
-                        <p className="font-inter uppercase font-semibold text-lg text-red-600">Gym Fitness</p>
+                            <FaDumbbell className="text-3xl" />
+                            <p className="font-inter uppercase font-semibold text-lg text-red-600">Gym Fitness</p>
                         </div>
                         <div className="p-10 border-2 flex flex-col items-center border-red-600">
-                        <IoAccessibilitySharp className="text-3xl" />
-                        <p className="font-inter uppercase font-semibold text-lg text-red-600">Body Shaping</p>
+                            <IoAccessibilitySharp className="text-3xl" />
+                            <p className="font-inter uppercase font-semibold text-lg text-red-600">Body Shaping</p>
                         </div>
                         <div className="p-10 border-2 flex flex-col items-center border-red-600">
-                        <GrYoga className="text-3xl" />
-                        <p className="font-inter uppercase font-semibold text-lg text-red-600">Yoga Classes</p>
+                            <GrYoga className="text-3xl" />
+                            <p className="font-inter uppercase font-semibold text-lg text-red-600">Yoga Classes</p>
                         </div>
                     </div>
 
-                    <Link to='/all-classes'><Button text={'Join Today'}></Button></Link>
+                    <Link to='/all-classes'><button className='border px-4 py-3 rounded-lg hover:opacity-50 bg-black border-red-600 text-white text-lg font-medium'>
+                        Join Today
+                    </button></Link>
 
                 </div>
                 <img src={about} alt="" className="rounded-lg object-cover lg:h-full " />

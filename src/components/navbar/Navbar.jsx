@@ -1,9 +1,11 @@
-import { Avatar,Dropdown, Navbar as FlowbiteNavbar } from "flowbite-react";
+import { Avatar, Dropdown, Navbar as FlowbiteNavbar } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
-import Button from "../button/Button";
+import { useContext } from "react";
+import { AuthContext } from "../../auth/AuthProvider";
 
 const FlowbiteNavbarbar = () => {
-    const user = false
+    const { user, logOut } = useContext(AuthContext);
+
     const links = <>
         <NavLink to='/'><FlowbiteNavbar.Link className="text-base font-inter">Home</FlowbiteNavbar.Link></NavLink>
         <NavLink to='/all-trainer'><FlowbiteNavbar.Link className="text-base font-inter">All Trainer </FlowbiteNavbar.Link></NavLink>
@@ -22,27 +24,30 @@ const FlowbiteNavbarbar = () => {
                 </FlowbiteNavbar.Brand>
                 <div className="flex md:order-2">
                     {
-                        user? <Dropdown
-                        arrowIcon={false}
-                        inline
-                        label={
-                            <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
-                        }
-                    >
-                        <Dropdown.Header>
-                            <span className="block text-sm">Bonnie Green</span>
-                            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
-                        </Dropdown.Header>
-                        <Dropdown.Item>Log Out</Dropdown.Item>
-                    </Dropdown> : <Link to='/login'><Button text={'Login'}></Button></Link>
+                        user ? <Dropdown
+                            arrowIcon={false}
+                            inline
+                            label={
+                                <Avatar alt="User settings" className="border-2 p-[3px] border-red-600 rounded-full" img={user?.photoURL} rounded />
+                            }
+                        >
+                            <Dropdown.Header>
+                                <span className="block font-semibold text-sm">{user?.displayName}</span>
+                            </Dropdown.Header>
+                            <Dropdown.Item><button onClick={logOut} className='border px-4 py-3 rounded-lg hover:opacity-50 bg-black border-red-600 text-white text-lg font-medium'>
+                                Logout
+                            </button></Dropdown.Item>
+                        </Dropdown> : <Link to='/login'><button className='border px-4 py-3 rounded-lg hover:opacity-50 bg-black border-red-600 text-white text-lg font-medium'>
+                            Login
+                        </button></Link>
                     }
-                    
-                    
+
+
                 </div>
                 <FlowbiteNavbar.Collapse id="nav">
                     {links}
                 </FlowbiteNavbar.Collapse>
-                
+
             </FlowbiteNavbar>
         </div>
     );
