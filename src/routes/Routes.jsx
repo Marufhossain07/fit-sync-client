@@ -6,6 +6,7 @@ import Login from "../components/login/Login";
 import Register from "../components/register/Register";
 import Dashboard from "../layout/dashboard/Dashboard";
 import Subscribers from "../layout/dashboard/admin/Subscribers";
+import AddClass from "../layout/dashboard/admin/AddClass";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         {
           path:'/dashboard/subscribers',
           element: <Subscribers></Subscribers>
+        },
+        {
+          path:'/dashboard/add-class',
+          element: <AddClass></AddClass>
         }
       ]
     }

@@ -10,8 +10,7 @@ const Newsletter = () => {
         const form  = e.target;
         const name = form.name.value;
         const email = form.email.value;
-        const time = Date.now().toLocaleString();
-        const newData = {name,email,time};
+        const newData = {name,email};
         try{
 
             const {data} = await axiosPublic.post('/subscribe', newData)
