@@ -3,17 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { AuthContext } from "../../auth/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate()
     const { signIn, googleSignIn } = useContext(AuthContext)
-
+    const axiosPublic = useAxiosPublic()
     const onSubmit = (data) => {
 
         signIn(data?.email, data?.pass)
             .then(res => {
-                console.log(res.user)
+                console.log(res.user.name);
                 toast('Successfully Sign In. Welcome!')
                 setTimeout(() => {
                     navigate(location?.state ? location.state : '/')
@@ -39,9 +40,16 @@ const Login = () => {
             .then(res => {
                 console.log(res.user)
                 toast('Successfully Sign In. Welcome!')
+                const userInfo = {
+                    name: res.user?.displayName,
+                    email: res.user?.email,
+                    lastLogin: res.user?.metadata?.lastSignInTime
+                }
+                axiosPublic.post('/users', userInfo)
                 setTimeout(() => {
                     navigate(location?.state ? location.state : '/')
                 }, 2000)
+
             })
             .catch(error => {
                 const errorMessage = error.message.slice(10)

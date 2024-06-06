@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { Spinner } from "flowbite-react";
-import { MdDelete, MdDeleteForever } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 
 const Subscribers = () => {

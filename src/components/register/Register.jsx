@@ -5,19 +5,29 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 import { AuthContext } from "../../auth/AuthProvider";
 import { updateProfile } from "firebase/auth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Alert } from "flowbite-react";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const axiosPublic = useAxiosPublic()
+    const { register, handleSubmit } = useForm();
     const { createUser,googleSignIn, logOut } = useContext(AuthContext);
     const navigate = useNavigate()
     const onSubmit = async(data) => {
        await createUser(data.email,data.pass)
-        .then(res=>{
+        .then(async (res)=>{
+            console.log(res.user);
             toast('You Are Successfully Registered',{
                 position: "top-center",
                 autoClose: 2500,
             })
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                lastLogin: res?.user?.metadata?.lastSignInTime
+            }
+           await axiosPublic.post('/users', userInfo)
             updateProfile(res?.user,{
                 displayName: data.name,
                 photoURL: data.photo
@@ -57,6 +67,30 @@ const Register = () => {
                 theme: "light",
             })
         }
+    }
+
+    const handleGoogle = () =>{
+        googleSignIn()
+        .then(res=>{
+            toast('You Are Successfully Registered',{
+                position: "top-center",
+                autoClose: 2500,
+            })
+            const userInfo = {
+                name: res.user?.displayName,
+                email: res.user?.email,
+                lastLogin: res.user?.metadata?.lastSignInTime
+            }
+            console.log(res.user);
+            console.log(userInfo);
+            axiosPublic.post('/users', userInfo)
+            setTimeout(()=>{
+                navigate('/')
+            },2000)
+        })
+        .catch(err=>{
+            Alert(err.message)
+        })
     }
     return (
         <div className="container mx-auto form-bg rounded-md py-20 my-5">
@@ -191,7 +225,7 @@ const Register = () => {
                     <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
                 </div>
                 <div className="flex justify-center space-x-4">
-                    <button aria-label="Log in with Google" className="p-3 rounded-sm">
+                    <button onClick={handleGoogle} aria-label="Log in with Google" className="p-3 rounded-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-current">
                             <path d="M16.318 13.714v5.484h9.078c-0.37 2.354-2.745 6.901-9.078 6.901-5.458 0-9.917-4.521-9.917-10.099s4.458-10.099 9.917-10.099c3.109 0 5.193 1.318 6.38 2.464l4.339-4.182c-2.786-2.599-6.396-4.182-10.719-4.182-8.844 0-16 7.151-16 16s7.156 16 16 16c9.234 0 15.365-6.49 15.365-15.635 0-1.052-0.115-1.854-0.255-2.651z"></path>
                         </svg>
