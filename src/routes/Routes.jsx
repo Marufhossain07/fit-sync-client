@@ -7,6 +7,7 @@ import Register from "../components/register/Register";
 import Dashboard from "../layout/dashboard/Dashboard";
 import Subscribers from "../layout/dashboard/admin/Subscribers";
 import AddClass from "../layout/dashboard/admin/AddClass";
+import AllClasses from "../pages/allclasses/AllClasses";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         {
           path: '/register',
           element: <Register></Register>
+        },
+        {
+          path: '/all-classes',
+          element: <AllClasses></AllClasses>
         }
       ]
     },

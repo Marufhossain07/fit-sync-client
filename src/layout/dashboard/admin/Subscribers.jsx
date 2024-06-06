@@ -42,7 +42,7 @@ const Subscribers = () => {
     }
 
     if (isLoading) {
-        return <Spinner className="flex justify-between items-center" color='failure' aria-label="Extra large spinner example" size="xl" />
+        return <Spinner className="mx-auto w-full mt-48" color='failure' aria-label="Extra large spinner example" size="xl" />
     }
     return (
         <div>
@@ -58,7 +58,7 @@ const Subscribers = () => {
 
                         </tr>
                         {
-                            data.map((user, index) => {
+                            data?.map((user, index) => {
                                 return <tr key={user._id}>
                                     <th scope="row" className="h-12 px-6 text-sm text-center transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{index + 1}</th>
                                     <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{user?.name}</td>

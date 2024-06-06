@@ -1,22 +1,43 @@
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AddClass = () => {
-    const {register, handleSubmit} = useForm();
+    const { register, handleSubmit,reset } = useForm();
+    const axiosSecure = useAxiosSecure()
+    const onSubmit = async(data) => {
+        const newClass = data;
+        await axiosSecure.post('/add-class', newClass)
+        .then(res=>{
+            if(res.data.insertedId){
+                
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "New Class has been added",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
+            reset()
+            
+        })
+        .catch(error=>{
+            console.log(error)
+        })
 
-    const onSubmit = (data) =>{
-        console.log(data)
     }
     return (
         <div>
             <h3 className="font-sedan text-center mt-20 md:mt-16 lg:mt-10 text-4xl font-semibold">New Class Form</h3>
 
-            <div className="w-1/2 p-10 rounded-lg bg-red-400 mx-auto mt-10">
+            <div className="w-full lg:w-1/2 p-10 rounded-lg bg-red-400 mx-auto mt-10">
                 <form>
                     <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                         <div className="col-span-full sm:col-span-3">
                             <div className="relative my-6">
                                 <input
-
+                                    placeholder="name"
                                     type="text"
                                     {...register('name')}
                                     required
@@ -37,6 +58,7 @@ const AddClass = () => {
                                 <input
                                     id="id-l04"
                                     type="text"
+                                    placeholder="duration"
                                     {...register('duration')}
                                     required
                                     className="peer relative h-12 w-full border-b bg-transparent border-slate-200 px-4  placeholder-transparent outline-none transition-all text-white   focus:border-emerald-500 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
@@ -56,6 +78,7 @@ const AddClass = () => {
                                 <input
                                     id="id-l04"
                                     type="text"
+                                    placeholder="capacity"
                                     {...register('capacity')}
                                     required
                                     className="peer relative h-12 w-full border-b bg-transparent border-slate-200 px-4  placeholder-transparent outline-none transition-all text-white   focus:border-emerald-500 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
@@ -75,6 +98,7 @@ const AddClass = () => {
                                 <input
                                     id="id-l04"
                                     type="text"
+                                    placeholder="schedule"
                                     {...register('schedule')}
                                     required
                                     className="peer relative h-12 w-full border-b bg-transparent border-slate-200 px-4  placeholder-transparent outline-none transition-all text-white   focus:border-emerald-500 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
@@ -129,6 +153,7 @@ const AddClass = () => {
                             <div className="relative my-6">
                                 <input
                                     id="id-l04"
+                                    placeholder="Photo URL"
                                     type="text"
                                     {...register('photo')}
                                     required
@@ -149,9 +174,10 @@ const AddClass = () => {
                                 <textarea
                                     id="id-l02"
                                     type="text"
+                                    placeholder="Details"
                                     {...register('details')}
                                     rows="3"
-                                   
+
                                     className="peer relative w-full bg-transparent border-b border-slate-200 p-4 text-white placeholder-transparent outline-none transition-all invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-white"
                                 ></textarea>
                                 <label
