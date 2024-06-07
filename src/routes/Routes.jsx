@@ -9,6 +9,7 @@ import Subscribers from "../layout/dashboard/admin/Subscribers";
 import AddClass from "../layout/dashboard/admin/AddClass";
 import AllClasses from "../pages/allclasses/AllClasses";
 import PrivateRoute from "../auth/PrivateRoute";
+import BeTrainer from "../pages/be a trainer/BeTrainer";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/all-classes',
         element: <AllClasses></AllClasses>
+      },
+      {
+        path: '/beTrainer',
+        element: <PrivateRoute><BeTrainer></BeTrainer></PrivateRoute>
       }
     ]
   },
