@@ -1,22 +1,60 @@
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { Checkbox, Label } from "flowbite-react";
 const AddSlot = () => {
     const axiosSecure = useAxiosSecure()
+    const [trainer, setTrainer] = useState()
+    const [classes, setClasses] = useState()
     const [selectedDays, setSelectedDays] = useState([])
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit, reset, setValue } = useForm()
     const animatedComponents = makeAnimated()
     const { user } = useContext(AuthContext);
     const navigate = useNavigate()
+    useEffect(() => {
+        axiosSecure(`/trainer/${user?.email}`)
+            .then(res => {
+                setTrainer(res.data)
+                setValue('name', res.data.name);
+                setValue('age', res.data.age);
+                setValue('availableTime', res.data.availableTime);
+                setValue('photo', res.data.photo);
+                setValue('experience', res.data.experience);
+                
+            })
 
-    const onSubmit = async(data) => {
-    }
+        axiosSecure('/classes')
+            .then(res => {
+                setClasses(res.data)
+            })
+    }, [axiosSecure, setValue,user?.email])
+    const onSubmit = async (data) => {
+       const newSlot = {
+        ...data,
+        availableDays: selectedDays
+       }
+       
+       await axiosSecure.post('/slot', newSlot)
+       .then(res=>{
+        if(res.data.insertedId){
+            reset()
+            toast('Slot has been successfully added!')
+            setTimeout(() => {
+                navigate('/dashboard/manage-slots')
+            }, 1500)
+        }
+       })
+       .catch(error=>{
+        toast(error.message)
+    })
+        
+       }
+    
     const handleSelect = (options) => {
         setSelectedDays(options)
     }
@@ -146,25 +184,14 @@ const AddSlot = () => {
                             </div>
                         </div>
                         <div className="col-span-full sm:col-span-3">
-                        <div className="relative my-6">
-                                <Select
-                                    styles={{
-                                        control: (provided, state) => ({
-                                            ...provided,
-                                            boxShadow: "none",
-                                            border: "none",
-                                            color: "white",
-                                            backgroundColor: "transparent"
-                                        })
-                                    }}
-                                    className="border border-white"
-                                    closeMenuOnSelect={false}
-                                    placeholder='Available days a week.'
-                                    onChange={handleSelect}
-                                    components={animatedComponents}
-                                    isMulti
-                                    options={colourOptions}
-                                />
+                            <Label className="text-lg font-medium text-white">Select Your Skills</Label>
+                            <div className="grid grid-cols-2">
+                                {
+                                    trainer?.skills.map((skill, index) => <div key={index} className="flex items-center gap-2">
+                                        <Checkbox {...register('skills')} value={skill} id="remember" />
+                                        <Label className="text-white" htmlFor="remember">{skill}</Label>
+                                    </div>)
+                                }
                             </div>
                         </div>
                         <div className="col-span-full sm:col-span-3">
@@ -185,43 +212,73 @@ const AddSlot = () => {
                                     onChange={handleSelect}
                                     components={animatedComponents}
                                     isMulti
-                                    options={colourOptions}
+                                    options={trainer?.availableDays}
                                 />
                             </div>
                         </div>
-                        
-
-                        <div className="col-span-full">
-                            <div className="relative">
-                                <textarea
-                                    id="id-l02"
+                        <div className="col-span-full sm:col-span-3">
+                            <div className="relative my-6">
+                                <input
+                                    placeholder="Slot Name"
                                     type="text"
-                                    placeholder="Bio"
-                                    {...register('bio')}
-                                    rows="3"
+                                    {...register('slot')}
+                                    required
+                                    className="peer relative h-12 w-full border-b bg-transparent border-slate-200 px-4  placeholder-transparent outline-none transition-all text-white   focus:border-emerald-500 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
 
-                                    className="peer relative w-full bg-transparent border-b border-slate-200 p-4 text-white placeholder-transparent outline-none transition-all invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-white"
-                                ></textarea>
+                                />
                                 <label
-
-                                    className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-white transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full  before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-required:after:text-white peer-required:after:content-['\00a0*'] peer-invalid:text-white peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-white peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-white peer-disabled:before:bg-transparent"
+                                    htmlFor="id-l04"
+                                    className="absolute left-2 -top-2 z-[1] bg-transparent cursor-text px-2 font-medium text-white transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full  before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:content-['\00a0*']  peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-white peer-invalid:peer-focus:text-pink-500peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
                                 >
-                                    Bio
+                                    Slot Name
                                 </label>
+
                             </div>
                         </div>
+                        <div className="col-span-full sm:col-span-3">
+                            <div className="relative my-6">
+                                <input
+                                    placeholder="Slot Time"
+                                    type="text"
+                                    {...register('slotTime')}
+                                    required
+                                    className="peer relative h-12 w-full border-b bg-transparent border-slate-200 px-4  placeholder-transparent outline-none transition-all text-white   focus:border-emerald-500 focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
 
+                                />
+                                <label
+                                    htmlFor="id-l04"
+                                    className="absolute left-2 -top-2 z-[1] bg-transparent cursor-text px-2 font-medium text-white transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full  before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:content-['\00a0*']  peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-white peer-invalid:peer-focus:text-pink-500peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                                >
+                                    Slot Time
+                                </label>
+
+                            </div>
+                        </div>
+                        <div className="col-span-full sm:col-span-3">
+                            <Label className="text-lg font-medium text-white">All Classes</Label>
+                            <div>
+                                {
+                                    classes?.map((singleClass, index) => {
+                                        return <div key={index} className="flex items-center gap-2">
+                                            <Checkbox {...register('classes')} value={singleClass.name} id="remember" />
+                                            <Label className="text-white" htmlFor="remember">{singleClass.name}</Label>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        </div>
                         <div className="col-span-full">
                             <button onClick={handleSubmit(onSubmit)} className="inline-flex w-full h-12 items-center justify-center gap-2 whitespace-nowrap rounded border border-white px-6 text-sm font-medium tracking-wide text-white transition duration-300 hover:border-black hover:text-black focus: focus:text-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:text-emerald-300 disabled:shadow-none">
-                                <span>Apply</span>
+                                <span>Add Slot</span>
                             </button>
                         </div>
+
                     </div>
                 </form>
             </div>
             <ToastContainer
                 position="top-center"
-                autoClose={2000}
+                autoClose={1500}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick

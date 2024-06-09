@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { FaRegAddressCard, FaWallet } from "react-icons/fa";
-import { MdFormatListBulletedAdd, MdOutlineLibraryAdd, MdOutlineUnsubscribe } from "react-icons/md";
-import { SiTrainerroad } from "react-icons/si";
+import { MdFormatListBulletedAdd, MdForum, MdOutlineLibraryAdd, MdOutlineUnsubscribe, MdPostAdd } from "react-icons/md";
+import { SiGoogleclassroom, SiTrainerroad } from "react-icons/si";
 import { TbListDetails } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
 
@@ -173,6 +173,21 @@ const Dashboard = () => {
                                     </a>
                                     </NavLink>
                                 </li>
+                                <li className="px-3">
+                                    <NavLink to='/dashboard/add-forum'>
+                                    <a
+                                        className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-red-400 focus:bg-red-400 focus:text-white hover:text-white aria-[current=page]:bg-red-400  aria-[current=page]:text-red-400 "
+                                    >
+                                        <div className="flex items-center self-center">
+                                        
+                                        <MdPostAdd className="text-xl" />
+                                        </div>
+                                        <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                                        Add New Forum
+                                        </div>
+                                    </a>
+                                    </NavLink>
+                                </li>
 
                             </ul>
                         </div>
@@ -205,6 +220,51 @@ const Dashboard = () => {
                                         </div>
                                         <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
                                             Home
+                                        </div>
+                                    </a>
+                                    </NavLink>
+                                </li>
+                                <li className="px-3">
+                                    <NavLink to='/all-trainers'>
+                                    <a
+                                        href="#"
+                                        className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-red-400 focus:bg-red-400 focus:text-white hover:text-white aria-[current=page]:bg-red-400  aria-[current=page]:text-red-400 "
+                                    >
+                                        <div className="flex items-center self-center">
+                                        <SiTrainerroad className=" text-xl"/>
+                                        </div>
+                                        <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                                            All Trainers
+                                        </div>
+                                    </a>
+                                    </NavLink>
+                                </li>
+                                <li className="px-3">
+                                    <NavLink to='/all-classes'>
+                                    <a
+                                        href="#"
+                                        className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-red-400 focus:bg-red-400 focus:text-white hover:text-white aria-[current=page]:bg-red-400  aria-[current=page]:text-red-400 "
+                                    >
+                                        <div className="flex items-center self-center">
+                                        <SiGoogleclassroom className="text-xl" />
+                                        </div>
+                                        <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                                            All Classes
+                                        </div>
+                                    </a>
+                                    </NavLink>
+                                </li>
+                                <li className="px-3">
+                                    <NavLink to='/community'>
+                                    <a
+                                        href="#"
+                                        className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-red-400 focus:bg-red-400 focus:text-white hover:text-white aria-[current=page]:bg-red-400  aria-[current=page]:text-red-400 "
+                                    >
+                                        <div className="flex items-center self-center">
+                                        <MdForum className="text-xl" />
+                                        </div>
+                                        <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                                            Community
                                         </div>
                                     </a>
                                     </NavLink>

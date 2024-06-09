@@ -3,16 +3,20 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Spinner } from "flowbite-react";
 import Swal from "sweetalert2";
 import { MdDelete } from "react-icons/md";
+import { useContext } from "react";
+import { AuthContext } from "../../../auth/AuthProvider";
 
 const ManageSlots = () => {
     const axiosSecure = useAxiosSecure()
+    const { user } = useContext(AuthContext)
     const { data, isLoading, refetch } = useQuery({
-        queryKey: ['applied'],
+        queryKey: ['slots'],
         queryFn: async () => {
-            const { data } = await axiosSecure('/applied')
+            const { data } = await axiosSecure(`/slot/${user?.email}`)
             return data
         }
     });
+    console.log(data);
     const handleDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -22,10 +26,10 @@ const ManageSlots = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-        }).then(async(result) => {
+        }).then(async (result) => {
 
             if (result.isConfirmed) {
-               await axiosSecure.delete(`/subscribe/${id}`)
+                await axiosSecure.delete(`/slot/${id}`)
                     .then(res => {
                         if (res?.data?.deletedCount > 0) {
                             refetch()
@@ -50,19 +54,19 @@ const ManageSlots = () => {
                 <table className="w-full text-left border border-separate rounded border-slate-200" cellSpacing="0">
                     <tbody>
                         <tr>
-                            <th scope="col" className="h-12 px-6 text-sm font-medium text-center border-l first:border-l-0 stroke-slate-700 text-white bg-red-400">No</th>
-                            <th scope="col" className="h-12 px-6 text-sm font-medium text-center border-l first:border-l-0 stroke-slate-700 text-white bg-red-400">Name</th>
-                            <th scope="col" className="h-12 px-6 text-sm font-medium text-center border-l first:border-l-0 stroke-slate-700 text-white bg-red-400">Email</th>
+                            <th scope="col" className="h-12 px-6 text-sm font-medium text-center border-l first:border-l-0 stroke-slate-700 text-white bg-red-400">Slot Name</th>
+                            <th scope="col" className="h-12 px-6 text-sm font-medium text-center border-l first:border-l-0 stroke-slate-700 text-white bg-red-400">Class Name</th>
+                            <th scope="col" className="h-12 px-6 text-sm font-medium text-center border-l first:border-l-0 stroke-slate-700 text-white bg-red-400">Booked By</th>
                             <th scope="col" className="h-12 px-6 text-sm font-medium text-center border-l first:border-l-0 stroke-slate-700 text-white bg-red-400">Action</th>
 
                         </tr>
                         {
-                            data?.map((user, index) => {
+                            data?.map((slot) => {
                                 return <tr key={user._id}>
-                                    <th scope="row" className="h-12 px-6 text-sm text-center transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{index + 1}</th>
-                                    <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{user?.name}</td>
-                                    <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{user?.email}</td>
-                                    <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 "><button className="w-full" onClick={()=> handleDelete(user?._id)}><MdDelete className="text-2xl mx-auto" /></button></td>
+                                    <td scope="row" className="h-12 px-6 text-sm text-center transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{slot?.slot}</td>
+                                    <td className="h-12 text-center px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{slot?.name}</td>
+                                    <td className="h-12 text-center px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{slot?.email}</td>
+                                    <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 "><button className="w-full" onClick={() => handleDelete(slot?._id)}><MdDelete className="text-2xl mx-auto" /></button></td>
 
                                 </tr>
                             })

@@ -16,6 +16,8 @@ import AppliedTrainer from "../layout/dashboard/admin/AppliedTrainer";
 import TrainerDetails from "../layout/dashboard/admin/TrainerDetails";
 import ManageSlots from "../layout/dashboard/trainer/ManageSlots";
 import AddSlot from "../layout/dashboard/trainer/AddSlot";
+import AddForum from "../layout/dashboard/AddForum";
+import Trainer from "../pages/all-trainer/Trainer";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
       {
         path:'/all-trainers',
         element: <AllTrainers></AllTrainers>
+      },{
+        path: '/trainer/:email',
+        element: <Trainer></Trainer>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/trainer/${params.email}`)
       }
     ]
   },
@@ -81,6 +87,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/add-slots',
         element: <AddSlot></AddSlot>
+      },
+      {
+        path: '/dashboard/add-forum',
+        element: <AddForum></AddForum>
       }
     ]
   }

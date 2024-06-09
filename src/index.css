@@ -45,3 +45,7 @@
 #dash li>a a.active{
   background-color: black;
 }
+
+.bg-cta{
+  background-image: url(./assets//cta.png);
+}

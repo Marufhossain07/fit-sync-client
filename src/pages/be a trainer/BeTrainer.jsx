@@ -34,6 +34,9 @@ const BeTrainer = () => {
                 navigate('/')
             }, 2000)
         })
+        .catch(error=>{
+            toast(error.message)
+        })
         
     }
     const handleSelect = (options) => {
