@@ -12,6 +12,10 @@ import PrivateRoute from "../auth/PrivateRoute";
 import BeTrainer from "../pages/be a trainer/BeTrainer";
 import AllTrainers from "../pages/all-trainer/AllTrainers";
 import Trainers from "../layout/dashboard/admin/Trainers";
+import AppliedTrainer from "../layout/dashboard/admin/AppliedTrainer";
+import TrainerDetails from "../layout/dashboard/admin/TrainerDetails";
+import ManageSlots from "../layout/dashboard/trainer/ManageSlots";
+import AddSlot from "../layout/dashboard/trainer/AddSlot";
 
 const router = createBrowserRouter([
   {
@@ -58,8 +62,25 @@ const router = createBrowserRouter([
         element: <AddClass></AddClass>
       },
       {
-        path:'all-trainers',
+        path:'/dashboard/all-trainers',
         element: <Trainers></Trainers>
+      },
+      {
+        path: '/dashboard/applied',
+        element: <AppliedTrainer></AppliedTrainer>
+      },
+      {
+        path: '/dashboard/applied/:_id',
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/applied/${params._id}`),
+        element: <TrainerDetails></TrainerDetails>
+      },
+      {
+        path: '/dashboard/manage-slots',
+        element: <ManageSlots></ManageSlots>
+      },
+      {
+        path: '/dashboard/add-slots',
+        element: <AddSlot></AddSlot>
       }
     ]
   }

@@ -1,8 +1,10 @@
 
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { FaRegAddressCard, FaWallet } from "react-icons/fa";
-import { MdOutlineLibraryAdd, MdOutlineUnsubscribe } from "react-icons/md";
+import { MdFormatListBulletedAdd, MdOutlineLibraryAdd, MdOutlineUnsubscribe } from "react-icons/md";
 import { SiTrainerroad } from "react-icons/si";
+import { TbListDetails } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
 
 
@@ -10,6 +12,9 @@ const Dashboard = () => {
     const [isSideNavOpen, setIsSideNavOpen] = useState(false)
     return (
         <div className="flex  justify-between">
+            <Helmet>
+                <title>FitSync | Dashboard</title>
+            </Helmet>
             <div className="w-0 lg:w-72">
                 <button
                     title="Side navigation"
@@ -136,6 +141,34 @@ const Dashboard = () => {
                                         </div>
                                         <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
                                         Balance
+                                        </div>
+                                    </a>
+                                    </NavLink>
+                                </li>
+                                <li className="px-3">
+                                    <NavLink to='/dashboard/manage-slots'>
+                                    <a
+                                        className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-red-400 focus:bg-red-400 focus:text-white hover:text-white aria-[current=page]:bg-red-400  aria-[current=page]:text-red-400 "
+                                    >
+                                        <div className="flex items-center self-center">
+                                        <TbListDetails className="text-xl" />
+                                        </div>
+                                        <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                                        Manage Slots
+                                        </div>
+                                    </a>
+                                    </NavLink>
+                                </li>
+                                <li className="px-3">
+                                    <NavLink to='/dashboard/add-slots'>
+                                    <a
+                                        className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-red-400 focus:bg-red-400 focus:text-white hover:text-white aria-[current=page]:bg-red-400  aria-[current=page]:text-red-400 "
+                                    >
+                                        <div className="flex items-center self-center">
+                                        <MdFormatListBulletedAdd className="text-xl" />
+                                        </div>
+                                        <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+                                        Add New Slots
                                         </div>
                                     </a>
                                     </NavLink>

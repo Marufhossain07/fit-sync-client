@@ -7,6 +7,7 @@ import { AuthContext } from "../../auth/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { Alert } from "flowbite-react";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
@@ -26,7 +27,7 @@ const Register = () => {
                 name: data.name,
                 email: data.email,
                 lastLogin: res?.user?.metadata?.lastSignInTime,
-                role: 'user'
+                role: 'member'
             }
            await axiosPublic.post('/users', userInfo)
             updateProfile(res?.user,{
@@ -81,7 +82,7 @@ const Register = () => {
                 name: res.user?.displayName,
                 email: res.user?.email,
                 lastLogin: res.user?.metadata?.lastSignInTime,
-                role: 'user'
+                role: 'member'
             }
             console.log(res.user);
             console.log(userInfo);
@@ -96,6 +97,9 @@ const Register = () => {
     }
     return (
         <div className="container mx-auto form-bg rounded-md py-20 my-5">
+            <Helmet>
+                <title>FitSync | Register</title>
+            </Helmet>
             <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-transparent text-white dark:text-gray-800">
                 <h3 className=" text-3xl md:text-3xl lg:text-5xl text-center text-white font-bold font-sedan dark:text-white mb-5">Fit<span className="text-[#d62828]">Sync</span></h3>
                 <h1 className="text-2xl font-medium font-inter border-b border-white pb-1 text-center">Welcome! Please Register</h1>

@@ -1,66 +1,28 @@
-import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../auth/AuthProvider";
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import { colourOptions } from './data';
-import { Checkbox, Label } from "flowbite-react";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { ToastContainer, toast } from "react-toastify";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
-
-
-const BeTrainer = () => {
-    const axiosPublic = useAxiosPublic()
+import { ToastContainer } from "react-toastify";
+import makeAnimated from 'react-select/animated';
+import Select from 'react-select';
+import { Checkbox, Label } from "flowbite-react";
+const AddSlot = () => {
+    const axiosSecure = useAxiosSecure()
     const [selectedDays, setSelectedDays] = useState([])
     const { register, handleSubmit, reset } = useForm()
     const animatedComponents = makeAnimated()
     const { user } = useContext(AuthContext);
     const navigate = useNavigate()
+
     const onSubmit = async(data) => {
-
-        const newTrainer = {
-            ...data,
-            availableDays: selectedDays,
-            status: 'pending'
-        }
-
-        await axiosPublic.post('/trainer', newTrainer)
-        .then(res=>{
-            reset()
-            setSelectedDays([])
-            toast('You have successfully applied')
-            setTimeout(() => {
-                navigate('/')
-            }, 2000)
-        })
-        
     }
     const handleSelect = (options) => {
         setSelectedDays(options)
     }
-
-    const skills = [
-        "Strength Training",
-        " Power Yoga",
-        "Bodyweight Training",
-        "Crossfit",
-        "Aqua Aerobics",
-       " TRX Suspension Training",
-       "Stretching",
-       "Spinning",
-       "Meditation",
-       "Kickboxing",
-       "Functional Training",
-       "Cardio Blast",
-        "Zumba",
-        "Pilates"
-    ]
-
     return (
         <div>
-            <h3 className="font-sedan text-center mt-20 md:mt-16 lg:mt-10 text-4xl font-semibold">Be A Trainer</h3>
-
+            <h3 className="font-sedan text-center mt-20 md:mt-16 lg:mt-10 text-4xl font-semibold">Add New Slots</h3>
             <div className="w-full lg:w-1/2 p-10 rounded-lg bg-red-400 mx-auto mt-10">
                 <form>
                     <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
@@ -184,14 +146,25 @@ const BeTrainer = () => {
                             </div>
                         </div>
                         <div className="col-span-full sm:col-span-3">
-                            <Label className="text-lg font-medium text-white">Select Your Skills</Label>
-                            <div className="grid grid-cols-2">
-                            {
-                                skills.map((skill, index)=> <div key={index} className="flex items-center gap-2">
-                                    <Checkbox {...register('skills')} value={skill}id="remember" />
-                                    <Label    className="text-white" htmlFor="remember">{skill}</Label> 
-                                </div>)
-                            }
+                        <div className="relative my-6">
+                                <Select
+                                    styles={{
+                                        control: (provided, state) => ({
+                                            ...provided,
+                                            boxShadow: "none",
+                                            border: "none",
+                                            color: "white",
+                                            backgroundColor: "transparent"
+                                        })
+                                    }}
+                                    className="border border-white"
+                                    closeMenuOnSelect={false}
+                                    placeholder='Available days a week.'
+                                    onChange={handleSelect}
+                                    components={animatedComponents}
+                                    isMulti
+                                    options={colourOptions}
+                                />
                             </div>
                         </div>
                         <div className="col-span-full sm:col-span-3">
@@ -262,4 +235,4 @@ const BeTrainer = () => {
     );
 };
 
-export default BeTrainer;
+export default AddSlot;

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { AuthContext } from "../../auth/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const { register, handleSubmit } = useForm();
@@ -67,6 +68,9 @@ const Login = () => {
     }
     return (
         <div className="container mx-auto my-5 form-bg rounded-md py-20">
+            <Helmet>
+                <title>FitSync | Login</title>
+            </Helmet>
             <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-transparent text-white dark:text-gray-800">
                 <h3 className=" text-3xl md:text-3xl lg:text-5xl text-center text-white font-bold font-sedan dark:text-white mb-5">Fit<span className="text-[#d62828]">Sync</span></h3>
                 <h1 className="text-2xl font-medium border-b border-white pb-1 text-center">Please Login!</h1>

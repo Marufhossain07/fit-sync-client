@@ -3,6 +3,7 @@ import useAxiosPublic from '../../hooks/useAxiosPublic'
 import Class from "./Class";
 import { Pagination, Spinner } from "flowbite-react";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 const AllClasses = () => {
     const axiosPublic = useAxiosPublic()
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +22,9 @@ const AllClasses = () => {
     }
     return (
         <div className="container mx-auto">
+            <Helmet>
+                <title>FitSync | All Trainers</title>
+            </Helmet>
             <h3 className="font-sedan text-center mt-20 md:mt-16 lg:mt-10 text-4xl font-semibold">All Classes</h3>
             <div className="my-10 grid lg:grid-cols-3 gap-5">
                 {
