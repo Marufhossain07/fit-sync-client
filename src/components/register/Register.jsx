@@ -25,7 +25,8 @@ const Register = () => {
             const userInfo = {
                 name: data.name,
                 email: data.email,
-                lastLogin: res?.user?.metadata?.lastSignInTime
+                lastLogin: res?.user?.metadata?.lastSignInTime,
+                role: 'user'
             }
            await axiosPublic.post('/users', userInfo)
             updateProfile(res?.user,{
@@ -79,7 +80,8 @@ const Register = () => {
             const userInfo = {
                 name: res.user?.displayName,
                 email: res.user?.email,
-                lastLogin: res.user?.metadata?.lastSignInTime
+                lastLogin: res.user?.metadata?.lastSignInTime,
+                role: 'user'
             }
             console.log(res.user);
             console.log(userInfo);

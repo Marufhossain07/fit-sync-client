@@ -10,6 +10,8 @@ import AddClass from "../layout/dashboard/admin/AddClass";
 import AllClasses from "../pages/allclasses/AllClasses";
 import PrivateRoute from "../auth/PrivateRoute";
 import BeTrainer from "../pages/be a trainer/BeTrainer";
+import AllTrainers from "../pages/all-trainer/AllTrainers";
+import Trainers from "../layout/dashboard/admin/Trainers";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: '/beTrainer',
         element: <PrivateRoute><BeTrainer></BeTrainer></PrivateRoute>
+      },
+      {
+        path:'/all-trainers',
+        element: <AllTrainers></AllTrainers>
       }
     ]
   },
@@ -50,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/add-class',
         element: <AddClass></AddClass>
+      },
+      {
+        path:'all-trainers',
+        element: <Trainers></Trainers>
       }
     ]
   }

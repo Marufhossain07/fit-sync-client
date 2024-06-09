@@ -8,7 +8,7 @@ const FlowbiteNavbarbar = () => {
 
     const links = <>
         <NavLink to='/'><FlowbiteNavbar.Link className="text-base font-inter">Home</FlowbiteNavbar.Link></NavLink>
-        <NavLink to='/all-trainer'><FlowbiteNavbar.Link className="text-base font-inter">All Trainer </FlowbiteNavbar.Link></NavLink>
+        <NavLink to='/all-trainers'><FlowbiteNavbar.Link className="text-base font-inter">All Trainer </FlowbiteNavbar.Link></NavLink>
         <NavLink to='/all-classes'><FlowbiteNavbar.Link className="text-base font-inter" >All Classes</FlowbiteNavbar.Link></NavLink>
         {
             user && <NavLink to='/dashboard/subscribers'><FlowbiteNavbar.Link className="text-base font-inter"> Dashboard</FlowbiteNavbar.Link></NavLink>
