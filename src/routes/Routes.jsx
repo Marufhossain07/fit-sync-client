@@ -18,6 +18,7 @@ import ManageSlots from "../layout/dashboard/trainer/ManageSlots";
 import AddSlot from "../layout/dashboard/trainer/AddSlot";
 import AddForum from "../layout/dashboard/AddForum";
 import Trainer from "../pages/all-trainer/Trainer";
+import BookedTrainer from "../pages/all-trainer/BookedTrainer";
 
 const router = createBrowserRouter([
   {
@@ -49,9 +50,14 @@ const router = createBrowserRouter([
         path:'/all-trainers',
         element: <AllTrainers></AllTrainers>
       },{
-        path: '/trainer/:email',
+        path: '/trainer/details/:email',
         element: <Trainer></Trainer>,
-        loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/trainer/${params.email}`)
+        loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/trainer/details/${params.email}`)
+      },
+      {
+        path: '/book-slot/:_id',
+        element: <BookedTrainer></BookedTrainer>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/book-slot/${params._id}`)
       }
     ]
   },

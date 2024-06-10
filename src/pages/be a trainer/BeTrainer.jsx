@@ -22,7 +22,8 @@ const BeTrainer = () => {
         const newTrainer = {
             ...data,
             availableDays: selectedDays,
-            status: 'pending'
+            status: 'pending',
+            availableSlots: 0
         }
 
         await axiosPublic.post('/trainer', newTrainer)

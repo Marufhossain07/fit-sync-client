@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 const AllTrainers = () => {
     const axiosPublic = useAxiosPublic()
-    const { data, isLoading, refetch } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['trainers'],
         queryFn: async () => {
             const { data } = await axiosPublic('/trainer')
@@ -36,8 +36,8 @@ const AllTrainers = () => {
                             <p className="border-2 rounded-full p-3 hover:bg-red-400 hover:text-white hover:border-black hover:cursor-pointer border-[#003049]"><FaInstagram className="text-xl " /></p>
                         </div>
                         <div className="flex justify-between">
-                            <p className="font-inter font-medium">Available Slots: 4</p>
-                            <Link to={`/trainer/${trainer?.email}`}><button className="font-semibold font-sedan text-lg underline">Know More</button></Link>
+                            <p className="font-inter font-medium">Available Slots: {trainer?.availableSlots}</p>
+                            <Link to={`/trainer/details/${trainer?.email}`}><button className="font-semibold font-sedan text-lg underline">Know More</button></Link>
                         </div>
                     </div>
                 })

@@ -17,7 +17,7 @@ const AddSlot = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate()
     useEffect(() => {
-        axiosSecure(`/trainer/${user?.email}`)
+        axiosSecure(`/trainer/details/${user?.email}`)
             .then(res => {
                 setTrainer(res.data)
                 setValue('name', res.data.name);

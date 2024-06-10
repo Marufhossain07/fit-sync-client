@@ -4,20 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
-.font-inter{
-    font-family: "Inter", sans-serif;
+.font-inter {
+  font-family: "Inter", sans-serif;
 }
 
-.font-sedan{
-    font-family: "Sedan SC", serif;
+.font-sedan {
+  font-family: "Sedan SC", serif;
 }
 
-#nav a.active{
+#nav a.active {
 
   border-bottom: 2px solid #d62828;
 }
 
-.news-bg{
+.news-bg {
   background-image: url('./assets/news.jfif');
   background-repeat: no-repeat;
   background-size: cover;
@@ -25,16 +25,17 @@
   border-radius: 8px;
 }
 
-.form-bg{
+.form-bg {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/bg-form.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
-.bg-banner{
+
+.bg-banner {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/bg-banner.png');
   background-repeat: no-repeat;
   background-size: cover;
-  
+
 }
 
 .img-radius img {
@@ -42,10 +43,20 @@
 }
 
 
-#dash li>a a.active{
+#dash li>a a.active {
   background-color: black;
 }
 
-.bg-cta{
+.bg-cta {
   background-image: url(./assets//cta.png);
+  
+}
+
+#trainer-avatar img {
+  object-fit: cover;
+}
+
+#trainer-avatar:hover {
+  transform: scale(1.05);
+  background-color: black;
 }
