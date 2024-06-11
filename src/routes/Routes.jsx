@@ -19,6 +19,7 @@ import AddSlot from "../layout/dashboard/trainer/AddSlot";
 import AddForum from "../layout/dashboard/AddForum";
 import Trainer from "../pages/all-trainer/Trainer";
 import BookedTrainer from "../pages/all-trainer/BookedTrainer";
+import Payment from "../pages/all-trainer/Payment";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,11 @@ const router = createBrowserRouter([
       {
         path: '/book-slot/:_id',
         element: <BookedTrainer></BookedTrainer>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/book-slot/${params._id}`)
+      },
+      {
+        path: '/booking/:_id',
+        element: <Payment></Payment>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/book-slot/${params._id}`)
       }
     ]

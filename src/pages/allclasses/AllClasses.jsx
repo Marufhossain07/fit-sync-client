@@ -42,7 +42,7 @@ const AllClasses = () => {
     return (
         <div className="container mx-auto">
             <Helmet>
-                <title>FitSync | All Trainers</title>
+                <title>FitSync | All Classes</title>
             </Helmet>
             <h3 className="font-sedan text-center mt-20 md:mt-16 lg:mt-10 text-4xl font-semibold">All Classes</h3>
             <form onSubmit={handleSearch}>

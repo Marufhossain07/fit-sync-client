@@ -14,7 +14,7 @@ const Trainer = () => {
         const {data} = useQuery({
             queryKey: ['available-slots'],
             queryFn: async () => {
-                const { data } = await axiosSecure(`/slot/${trainer?.email}`)
+                const { data } = await axiosSecure(`/available-slots/${trainer?.email}`)
                 setSlots(data)
                 return data
         }})

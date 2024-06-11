@@ -17,7 +17,7 @@ const ManageSlots = () => {
         }
     });
     console.log(data);
-    const handleDelete = (id) => {
+    const handleDelete = (id,email) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -29,7 +29,7 @@ const ManageSlots = () => {
         }).then(async (result) => {
 
             if (result.isConfirmed) {
-                await axiosSecure.delete(`/slot/${id}`)
+                await axiosSecure.delete(`/slot/${id}/${email}`)
                     .then(res => {
                         if (res?.data?.deletedCount > 0) {
                             refetch()
@@ -65,8 +65,8 @@ const ManageSlots = () => {
                                 return <tr key={user._id}>
                                     <td scope="row" className="h-12 px-6 text-sm text-center transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{slot?.slot}</td>
                                     <td className="h-12 text-center px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{slot?.name}</td>
-                                    <td className="h-12 text-center px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{slot?.email}</td>
-                                    <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 "><button className="w-full" onClick={() => handleDelete(slot?._id)}><MdDelete className="text-2xl mx-auto" /></button></td>
+                                    <td className="h-12 text-center px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{slot?.bookedBy ? slot?.bookedBy : "Not Booked Yet"}</td>
+                                    <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 "><button className="w-full" onClick={() => handleDelete(slot?._id, slot?.email)}><MdDelete className="text-2xl mx-auto" /></button></td>
 
                                 </tr>
                             })

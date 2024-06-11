@@ -36,7 +36,8 @@ const AddSlot = () => {
     const onSubmit = async (data) => {
        const newSlot = {
         ...data,
-        availableDays: selectedDays
+        availableDays: selectedDays,
+        bookedBy : 'none'
        }
        
        await axiosSecure.post('/slot', newSlot)
@@ -187,7 +188,7 @@ const AddSlot = () => {
                             <Label className="text-lg font-medium text-white">Select Your Skills</Label>
                             <div className="grid grid-cols-2">
                                 {
-                                    trainer?.skills.map((skill, index) => <div key={index} className="flex items-center gap-2">
+                                    trainer?.skills?.map((skill, index) => <div key={index} className="flex items-center gap-2">
                                         <Checkbox {...register('skills')} value={skill} id="remember" />
                                         <Label className="text-white" htmlFor="remember">{skill}</Label>
                                     </div>)
