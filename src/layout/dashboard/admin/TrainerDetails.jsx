@@ -5,26 +5,53 @@ import { CiCalendarDate } from "react-icons/ci";
 import { MdAccessTime } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import { Label, Modal, Textarea } from "flowbite-react";
+import { ToastContainer, toast } from "react-toastify";
 const TrainerDetails = () => {
     const data = useLoaderData()
+    const [openModal, setOpenModal] = useState(false);
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
+    const onCloseModal = () => {
+        setOpenModal(false);
+    }
     const handleAccept = (email) => {
         axiosSecure.patch(`/applied/${email}`)
-        .then(res=>{
-            console.log(res)
-            if(res?.data?.result?.modifiedCount > 0){
-                Swal.fire({
-                    title: "Good job!",
-                    text: "You have successfully accepted!",
-                    icon: "success",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    position: "center"
-                  });
-                  navigate('/dashboard/all-trainers')
-            }
-        })
+            .then(res => {
+                console.log(res)
+                if (res?.data?.result?.modifiedCount > 0) {
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "You have successfully accepted!",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        position: "center"
+                    });
+                    navigate('/dashboard/all-trainers')
+                }
+            })
+    }
+
+    const handleSubmit = async e =>{
+        e.preventDefault()
+        const form = e.target;
+        const feedback = form.feedback.value;
+   
+       const info = {
+            id:data._id,
+            feedback
+       }
+       await axiosSecure.put('/trainer/feedback', info)
+       .then(res=>{
+        if(res.data.modifiedCount > 0){
+            toast('Application has been rejected!')
+            setTimeout(() => {
+                navigate('/dashboard/applied')
+            }, 2000)
+        }
+       })
     }
     return (
         <div>
@@ -72,12 +99,60 @@ const TrainerDetails = () => {
                         <button onClick={() => handleAccept(data?.email)} className='border px-4 py-3 rounded-lg hover:opacity-50 bg-[#003049]  text-white text-lg font-medium'>
                             Accept
                         </button>
-                        <button className='border px-4 py-3 rounded-lg hover:opacity-50 bg-[#003049]  text-white text-lg font-medium'>
+                        <button onClick={() => setOpenModal(true)} className='border px-4 py-3 rounded-lg hover:opacity-50 bg-[#003049]  text-white text-lg font-medium'>
                             Reject
                         </button>
+                            <Modal show={openModal} size="md" onClose={onCloseModal} popup>
+                                <Modal.Header />
+                                <Modal.Body>
+                        <form onSubmit={handleSubmit}>
+                                    <div className="space-y-6">
+                                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Rejection Feedback</h3>
+                                        <div className="flex flex-col justify-center  p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
+                                            <img src={data?.photo} alt="" className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square" />
+                                            <div className="space-y-4 text-center divide-y dark:divide-gray-300">
+                                                <div className="my-2 space-y-1">
+                                                    <h2 className="text-xl font-semibold sm:text-2xl">{data?.name}</h2>
+                                                    <p className="px-5 text-xs sm:text-base dark:text-gray-600">{data?.bio}</p>
+                                                </div>
+                                                <div className="pt-2 space-x-4 align-center">
+                                                    <h3 className="font-medium">Skills:</h3>
+                                                    {
+                                                        data?.skills.map((skill, index) => {
+                                                            return <p key={index} className=" font-sedan font-medium "> {skill}</p>
+                                                        })
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="max-w-md">
+                                            <div className="mb-2 block">
+                                                <Label htmlFor="comment" value="Your Feedback" />
+                                            </div>
+                                            <Textarea name="feedback" id="comment" placeholder="Leave a Feedback..." required rows={4} />
+                                        </div>
+                                        <div className="w-full">
+                                            <input className="border w-full px-4 py-3 rounded-lg hover:opacity-50 bg-[#003049]  text-white text-lg font-medium" type="submit" value="Submit" />
+                                        </div>
+                                    </div>
+                        </form>
+                                </Modal.Body>
+                            </Modal>
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </div>
     );
 };

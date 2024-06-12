@@ -17,7 +17,7 @@ const BeTrainer = () => {
     const animatedComponents = makeAnimated()
     const { user } = useContext(AuthContext);
     const navigate = useNavigate()
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
 
         const newTrainer = {
             ...data,
@@ -27,18 +27,18 @@ const BeTrainer = () => {
         }
 
         await axiosPublic.post('/trainer', newTrainer)
-        .then(res=>{
-            reset()
-            setSelectedDays([])
-            toast('You have successfully applied')
-            setTimeout(() => {
-                navigate('/')
-            }, 2000)
-        })
-        .catch(error=>{
-            toast(error.message)
-        })
-        
+            .then(res => {
+                console.log(res);
+                if (res.data.insertedId) {
+                    reset()
+                    setSelectedDays([])
+                    toast('You have successfully applied')
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 2000)
+                }
+                toast(res.data.message)
+            })
     }
     const handleSelect = (options) => {
         setSelectedDays(options)
@@ -50,13 +50,13 @@ const BeTrainer = () => {
         "Bodyweight Training",
         "Crossfit",
         "Aqua Aerobics",
-       " TRX Suspension Training",
-       "Stretching",
-       "Spinning",
-       "Meditation",
-       "Kickboxing",
-       "Functional Training",
-       "Cardio Blast",
+        " TRX Suspension Training",
+        "Stretching",
+        "Spinning",
+        "Meditation",
+        "Kickboxing",
+        "Functional Training",
+        "Cardio Blast",
         "Zumba",
         "Pilates"
     ]
@@ -190,12 +190,12 @@ const BeTrainer = () => {
                         <div className="col-span-full sm:col-span-3">
                             <Label className="text-lg font-medium text-white">Select Your Skills</Label>
                             <div className="grid grid-cols-2">
-                            {
-                                skills.map((skill, index)=> <div key={index} className="flex items-center gap-2">
-                                    <Checkbox {...register('skills')} value={skill}id="remember" />
-                                    <Label    className="text-white" htmlFor="remember">{skill}</Label> 
-                                </div>)
-                            }
+                                {
+                                    skills.map((skill, index) => <div key={index} className="flex items-center gap-2">
+                                        <Checkbox {...register('skills')} value={skill} id="remember" />
+                                        <Label className="text-white" htmlFor="remember">{skill}</Label>
+                                    </div>)
+                                }
                             </div>
                         </div>
                         <div className="col-span-full sm:col-span-3">
@@ -220,7 +220,7 @@ const BeTrainer = () => {
                                 />
                             </div>
                         </div>
-                        
+
 
                         <div className="col-span-full">
                             <div className="relative">

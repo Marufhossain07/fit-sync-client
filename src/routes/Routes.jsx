@@ -20,6 +20,10 @@ import AddForum from "../layout/dashboard/AddForum";
 import Trainer from "../pages/all-trainer/Trainer";
 import BookedTrainer from "../pages/all-trainer/BookedTrainer";
 import Payment from "../pages/all-trainer/Payment";
+import ActivityLog from "../layout/dashboard/member/ActivityLog";
+import Profile from "../layout/dashboard/member/Profile";
+import AdminRoute from "../auth/AdminRoute";
+import TrainerRoute from "../auth/TrainerRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +56,7 @@ const router = createBrowserRouter([
         element: <AllTrainers></AllTrainers>
       },{
         path: '/trainer/details/:email',
-        element: <Trainer></Trainer>,
+        element: <PrivateRoute><Trainer></Trainer></PrivateRoute>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/trainer/details/${params.email}`)
       },
       {
@@ -73,36 +77,44 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/dashboard/subscribers',
-        element: <Subscribers></Subscribers>
+        element: <AdminRoute><Subscribers></Subscribers></AdminRoute>
       },
       {
         path: '/dashboard/add-class',
-        element: <AddClass></AddClass>
+        element: <AdminRoute><AddClass></AddClass></AdminRoute>
       },
       {
         path:'/dashboard/all-trainers',
-        element: <Trainers></Trainers>
+        element: <AdminRoute><Trainers></Trainers></AdminRoute>
       },
       {
         path: '/dashboard/applied',
-        element: <AppliedTrainer></AppliedTrainer>
+        element: <AdminRoute><AppliedTrainer></AppliedTrainer></AdminRoute>
       },
       {
         path: '/dashboard/applied/:_id',
         loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/applied/${params._id}`),
-        element: <TrainerDetails></TrainerDetails>
+        element: <AdminRoute><TrainerDetails></TrainerDetails></AdminRoute>
       },
       {
         path: '/dashboard/manage-slots',
-        element: <ManageSlots></ManageSlots>
+        element: <TrainerRoute><ManageSlots></ManageSlots></TrainerRoute>
       },
       {
         path: '/dashboard/add-slots',
-        element: <AddSlot></AddSlot>
+        element: <TrainerRoute><AddSlot></AddSlot></TrainerRoute>
       },
       {
         path: '/dashboard/add-forum',
-        element: <AddForum></AddForum>
+        element: <PrivateRoute><AddForum></AddForum></PrivateRoute>
+      },
+      {
+        path: '/dashboard/activity',
+        element: <ActivityLog></ActivityLog>
+      },
+      {
+        path: '/dashboard/profile',
+        element: <Profile></Profile>
       }
     ]
   }

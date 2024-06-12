@@ -15,7 +15,7 @@ const Login = () => {
 
         signIn(data?.email, data?.pass)
             .then(res => {
-                console.log(res.user.name);
+                console.log(res.user.metadata.lastSignInTime)
                 toast('Successfully Sign In. Welcome!')
                 setTimeout(() => {
                     navigate(location?.state ? location.state : '/')

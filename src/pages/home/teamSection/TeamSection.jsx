@@ -11,7 +11,7 @@ const TeamSection = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['team'],
         queryFn: async () => {
-            const { data } = await axiosPublic('/trainer')
+            const { data } = await axiosPublic('/all-trainer')
             return data
         }
     })

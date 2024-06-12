@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
-import { Checkbox, Label } from "flowbite-react";
+import { Checkbox, Label, Spinner } from "flowbite-react";
 const AddSlot = () => {
     const axiosSecure = useAxiosSecure()
     const [trainer, setTrainer] = useState()
@@ -58,6 +58,10 @@ const AddSlot = () => {
     
     const handleSelect = (options) => {
         setSelectedDays(options)
+    }
+
+    if (!trainer && !classes) {
+        return <Spinner className="mx-auto w-full mt-48" color='failure' aria-label="Extra large spinner example" size="xl" />
     }
     return (
         <div>

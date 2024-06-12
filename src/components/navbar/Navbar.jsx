@@ -1,20 +1,33 @@
-import { Avatar, Dropdown, Navbar as FlowbiteNavbar } from "flowbite-react";
+import { Avatar, Dropdown, Navbar as FlowbiteNavbar, Spinner } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../auth/AuthProvider";
+import useAdmin from "../../hooks/useAdmin";
+import useTrainer from "../../hooks/useTrainer";
 
-const FlowbiteNavbarbar = () => {
+const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-
+    const [isAdmin,isAdminLoading] = useAdmin()
+    const [isTrainer ,isTrainerLoading] = useTrainer()
     const links = <>
         <NavLink to='/'><FlowbiteNavbar.Link className="text-base font-inter">Home</FlowbiteNavbar.Link></NavLink>
         <NavLink to='/all-trainers'><FlowbiteNavbar.Link className="text-base font-inter">All Trainer </FlowbiteNavbar.Link></NavLink>
         <NavLink to='/all-classes'><FlowbiteNavbar.Link className="text-base font-inter" >All Classes</FlowbiteNavbar.Link></NavLink>
+        
         {
-            user && <NavLink to='/dashboard/subscribers'><FlowbiteNavbar.Link className="text-base font-inter"> Dashboard</FlowbiteNavbar.Link></NavLink>
+            user && isAdmin && <NavLink to='/dashboard/subscribers'><FlowbiteNavbar.Link className="text-base font-inter"> Dashboard</FlowbiteNavbar.Link></NavLink>
+        }
+        {
+            user && isTrainer && <NavLink to='/dashboard/manage-slots'><FlowbiteNavbar.Link className="text-base font-inter"> Dashboard</FlowbiteNavbar.Link></NavLink>
+        }
+        {
+            user && !isAdmin && !isTrainer && <NavLink to='/dashboard/activity'><FlowbiteNavbar.Link className="text-base font-inter"> Dashboard</FlowbiteNavbar.Link></NavLink>
         }
         <NavLink to='/community'><FlowbiteNavbar.Link className="text-base font-inter"> Community</FlowbiteNavbar.Link></NavLink>
     </>
+    // if (isAdminLoading || isTrainerLoading) {
+    //     return <Spinner className="mx-auto w-full mt-48" color='failure' aria-label="Extra large spinner example" size="xl" />
+    // }
     return (
         <div className="container mx-auto mt-5">
             <FlowbiteNavbar fluid rounded className="p-0">
@@ -53,4 +66,4 @@ const FlowbiteNavbarbar = () => {
     );
 };
 
-export default FlowbiteNavbarbar;
+export default Navbar;

@@ -9,7 +9,7 @@ const AllTrainers = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['trainers'],
         queryFn: async () => {
-            const { data } = await axiosPublic('/trainer')
+            const { data } = await axiosPublic('/all-trainer')
             return data
         }
     });

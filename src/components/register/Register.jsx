@@ -81,7 +81,6 @@ const Register = () => {
             const userInfo = {
                 name: res.user?.displayName,
                 email: res.user?.email,
-                lastLogin: res.user?.metadata?.lastSignInTime,
                 role: 'member'
             }
             console.log(res.user);
@@ -247,7 +246,7 @@ const Register = () => {
                 </p>
             </div>
             <ToastContainer
-                position="top-right"
+                position="top-center"
                 autoClose={4000}
                 hideProgressBar={false}
                 newestOnTop={false}
