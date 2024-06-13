@@ -6,7 +6,7 @@ import makeAnimated from 'react-select/animated';
 import { colourOptions } from './data';
 import { Checkbox, Label } from "flowbite-react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, Bounce  } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 
@@ -37,7 +37,22 @@ const BeTrainer = () => {
                         navigate('/')
                     }, 2000)
                 }
-                toast(res.data.message)
+
+                toast.error(res.data.message, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                setTimeout(() => {
+                    navigate('/')
+                }, 2000)
+
             })
     }
     const handleSelect = (options) => {
@@ -261,6 +276,7 @@ const BeTrainer = () => {
                 draggable
                 pauseOnHover
                 theme="light"
+                transition: Bounce
             />
         </div>
     );

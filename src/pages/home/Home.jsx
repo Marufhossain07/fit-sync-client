@@ -5,6 +5,7 @@ import Featured from "./Featured/Featured"
 import Newsletter from "./newsletter/Newsletter";
 import FeaturedClass from "./featuredClass/FeaturedClass";
 import TeamSection from "./teamSection/TeamSection";
+import LatestForums from "./latest forums/LatestForums";
 
 const Home = () => {
     return (
@@ -16,6 +17,7 @@ const Home = () => {
             <Featured></Featured>
             <AboutUs></AboutUs>
             <FeaturedClass></FeaturedClass>
+            <LatestForums></LatestForums>
             <Newsletter></Newsletter>
             <TeamSection></TeamSection>
         </div>

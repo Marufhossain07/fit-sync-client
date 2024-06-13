@@ -24,6 +24,7 @@ import ActivityLog from "../layout/dashboard/member/ActivityLog";
 import Profile from "../layout/dashboard/member/Profile";
 import AdminRoute from "../auth/AdminRoute";
 import TrainerRoute from "../auth/TrainerRoute";
+import Forums from "../pages/community/Forums";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
         path: '/booking/:_id',
         element: <Payment></Payment>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/book-slot/${params._id}`)
+      },
+      {
+        path: '/community',
+        element: <Forums></Forums>
       }
     ]
   },

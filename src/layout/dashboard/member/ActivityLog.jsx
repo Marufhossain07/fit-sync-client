@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import useAxiosPublic from "../../../hooks/useAxiosPublic"
-import { Spinner } from "flowbite-react"
+import { Modal, Spinner } from "flowbite-react"
 import { FaRegEye } from "react-icons/fa"
+import { useState } from "react"
 
 const ActivityLog = () => {
     const axiosPublic = useAxiosPublic()
-    const { data, isLoading, refetch } = useQuery({
+    const [feedback, setFeedback] = useState('')
+    const [openModal, setOpenModal] = useState(false);
+    const { data, isLoading } = useQuery({
         queryKey: ['applied'],
         queryFn: async () => {
             const { data } = await axiosPublic('/activity-log')
@@ -15,6 +18,13 @@ const ActivityLog = () => {
     console.log(data);
     if (isLoading) {
         return <Spinner className="mx-auto w-full mt-48" color='failure' aria-label="Extra large spinner example" size="xl" />
+    }
+
+    const handleFeedback = id =>{
+        axiosPublic(`/trainer/feedback/${id}`)
+        .then(res=>{
+            setFeedback(res.data.feedback);
+        })
     }
     return (
         <div>
@@ -35,7 +45,7 @@ const ActivityLog = () => {
                                     <th scope="row" className="h-12 px-6 text-sm text-center transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{index + 1}</th>
                                     <td className="h-12 text-center px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{user?.name}</td>
                                     <td className="h-12 text-center px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{user?.email}</td>
-                                    <td className="h-12  px-6 text-sm text-center transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{user?.status === 'rejected'? <button className="w-full">Rejected <FaRegEye className="text-2xl mx-auto" /></button> : 'Pending'}</td>
+                                    <td className="h-12  px-6 text-sm text-center transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">{user?.status === 'rejected' ? <div className="flex justify-center items-center gap-2"> <p className="text-center"> Rejected</p> <button onClick={() =>{ handleFeedback(user?._id), setOpenModal(true)}}> <FaRegEye className="text-2xl " /></button> </div> : 'Pending'}</td>
 
                                 </tr>
                             })
@@ -44,6 +54,16 @@ const ActivityLog = () => {
                     </tbody>
 
                 </table>
+                <Modal show={openModal} onClose={() => setOpenModal(false)}>
+                    <Modal.Header>Feedback of Admin</Modal.Header>
+                    <Modal.Body>
+                        <div>
+                            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                {feedback}
+                            </p>
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </div>
         </div>
     );
