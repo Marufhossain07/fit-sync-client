@@ -138,7 +138,7 @@ const Dashboard = () => {
                                         </NavLink>
                                     </li>
                                     <li className="px-3">
-                                        <NavLink to='/dashboard/applied'>
+                                        <NavLink to='/dashboard/balance'>
                                             <a
                                                 className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-red-400 focus:bg-red-400 focus:text-white hover:text-white aria-[current=page]:bg-red-400  aria-[current=page]:text-red-400 "
                                             >
@@ -242,7 +242,7 @@ const Dashboard = () => {
                                         </NavLink>
                                     </li>
                                     <li className="px-3">
-                                        <NavLink to='/dashboard/manage-slots'>
+                                        <NavLink to='/dashboard/booked-trainer'>
                                             <a
                                                 className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-red-400 focus:bg-red-400 focus:text-white hover:text-white aria-[current=page]:bg-red-400  aria-[current=page]:text-red-400 "
                                             >

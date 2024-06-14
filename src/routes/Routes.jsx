@@ -25,6 +25,9 @@ import Profile from "../layout/dashboard/member/Profile";
 import AdminRoute from "../auth/AdminRoute";
 import TrainerRoute from "../auth/TrainerRoute";
 import Forums from "../pages/community/Forums";
+import BookedTrainerDS from "../layout/dashboard/member/BookedTrainersDS";
+import BookedTrainerDetails from "../layout/dashboard/member/BookedTrainerDetails";
+import Balance from "../layout/dashboard/admin/Balance";
 
 const router = createBrowserRouter([
   {
@@ -120,6 +123,19 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/profile',
         element: <Profile></Profile>
+      },
+      {
+        path: '/dashboard/booked-trainer',
+        element: <BookedTrainerDS></BookedTrainerDS>
+      },
+      {
+        path: '/dashboard/booked-trainer/:email',
+        element: <BookedTrainerDetails></BookedTrainerDetails>,
+        loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/trainer/details/${params.email}`)
+      },
+      {
+        path: '/dashboard/balance',
+        element: <Balance></Balance>
       }
     ]
   }

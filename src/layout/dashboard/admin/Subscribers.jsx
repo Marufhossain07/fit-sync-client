@@ -3,6 +3,8 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure"
 import { Spinner } from "flowbite-react";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import Lottie from "react-lottie";
+import animationData from "../../../lottie/empty.json"
 
 const Subscribers = () => {
     const axiosSecure = useAxiosSecure()
@@ -40,6 +42,14 @@ const Subscribers = () => {
             console.log(id)
         });
     }
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
 
     if (isLoading) {
         return <Spinner className="mx-auto w-full mt-48" color='failure' aria-label="Extra large spinner example" size="xl" />
@@ -72,6 +82,16 @@ const Subscribers = () => {
                     </tbody>
 
                 </table>
+                {
+                    data.length === 0 && <div className="w-full">
+                        <Lottie
+                            options={defaultOptions}
+                            height={400}
+                            width={400}
+                        />
+                        <h3 className="text-4xl mb-5 text-center text-red-600 font-semibold">Opps! Nothing to see here!</h3>
+                    </div>
+                }
             </div>
         </div>
     );
