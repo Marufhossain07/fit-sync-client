@@ -12,10 +12,10 @@ const Profile = () => {
     const axiosPublic = useAxiosPublic()
     const navigate = useNavigate()
     const { register, handleSubmit, setValue, reset } = useForm()
-    console.log(user);
+
     const onSubmit = async (data) => {
         setValue('email', user?.email)
-        console.log(data);
+
 
         await axiosPublic.patch('/user', data)
             .then(res => {
@@ -54,7 +54,7 @@ const Profile = () => {
     return (
         <div>
             <h3 className="font-sedan text-center mt-20 md:mt-16 lg:mt-10 text-4xl font-semibold">User Profile</h3>
-            <div className="flex justify-center my-5 w-3/4 mx-auto rounded-lg bg-red-400">
+            <div className="flex flex-col md:flex-row lg:flex-row justify-center my-5 w-3/4 mx-auto rounded-lg bg-red-400">
                 <div className=" rounded-lg space-y-2  p-6 dark:bg-gray-50 dark:text-gray-800">
                     <img src={user?.photoURL} alt="" className="flex-shrink-0 border border-white rounded-lg object-cover h-64 sm:h-96 dark:bg-gray-500 aspect-square" />
                     <div className="space-y-2 text-white">

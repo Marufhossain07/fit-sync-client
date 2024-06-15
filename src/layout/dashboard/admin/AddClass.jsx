@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddClass = () => {
     const { register, handleSubmit,reset } = useForm();
@@ -23,7 +24,7 @@ const AddClass = () => {
             
         })
         .catch(error=>{
-            console.log(error)
+            toast.error(error.message)
         })
 
     }
@@ -197,6 +198,18 @@ const AddClass = () => {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </div>
     );
 };

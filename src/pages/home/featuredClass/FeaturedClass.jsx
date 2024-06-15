@@ -11,12 +11,12 @@ const FeaturedClass = () => {
             return data
         }
     })
-    console.log(data);
+
     return (
-        <div>
+        <div className="my-10">
             <Heading title={'Our Top Booking Classes'} sub={'Featured Classes'}></Heading>
 
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid mt-5 grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {
                     data?.slice(0, 6).map(singleClass => <div key={singleClass?._id} className=" p-6 rounded-md shadow-md bg-red-400 text-white">
                         <img src={singleClass?.photo} className="rounded-lg" />

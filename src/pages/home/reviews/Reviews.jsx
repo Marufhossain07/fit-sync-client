@@ -28,7 +28,25 @@ const Reviews = () => {
         <div>
             <Heading title={'What Our Members Saying'} sub={'Gym Reviews'}></Heading>
             <Swiper
-            style={{marginTop:'20px' , marginBottom:'20px'}}
+            breakpoints={{
+                '@0.00': {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
+                '@0.75': {
+                  slidesPerView: 1,
+                  spaceBetween: 20,
+                },
+                '@1.00': {
+                  slidesPerView: 3,
+                  spaceBetween: 40,
+                },
+                '@1.50': {
+                  slidesPerView: 3,
+                  spaceBetween: 50,
+                },
+              }}
+                style={{ marginTop: '20px', marginBottom: '20px' }}
                 slidesPerView={3}
                 spaceBetween={30}
                 pagination={{
@@ -51,7 +69,7 @@ const Reviews = () => {
                             </div>
                             <div className="flex items-center space-x-2 dark:text-yellow-700">
                                 <Rating
-                                itemStyles={customStyles}
+                                    itemStyles={customStyles}
                                     style={{ maxWidth: 180 }}
                                     value={d?.ratings}
                                     readOnly

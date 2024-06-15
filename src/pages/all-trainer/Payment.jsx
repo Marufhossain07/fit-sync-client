@@ -9,19 +9,22 @@ const Payment = () => {
     const data = useLoaderData()
     const axiosSecure = useAxiosSecure()
     const { packages, setPackages } = useContext(PackageContext)
-    console.log(packages)
+
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
 
     const handleSubmit =async(e)=>{
         e.preventDefault()
         const newPayment ={
+            ...packages,
             slotId: data._id,
             classes: data.classes,
             name: user.displayName,
             email: user.email,
-            trainerEmail: data?.email
+            trainerEmail: data?.email,
+            time: Date.now()
         }
+
         await axiosSecure.post('/payment', newPayment)
         .then(res=>{
             if(res.data.insertedId){

@@ -32,7 +32,7 @@ const AllClasses = () => {
         }
         getCount()
     }, [axiosPublic])
-    console.log(count, classPerPage);
+;
     const totalPages = Math.ceil(count / classPerPage)
     const pages = [...Array(totalPages).keys()].map(element => element + 1)
 

@@ -18,7 +18,7 @@ const Register = () => {
     const onSubmit = async(data) => {
        await createUser(data.email,data.pass)
         .then(async (res)=>{
-            console.log(res.user);
+
             toast('You Are Successfully Registered',{
                 position: "top-center",
                 autoClose: 2500,
@@ -83,8 +83,6 @@ const Register = () => {
                 email: res.user?.email,
                 role: 'member'
             }
-            console.log(res.user);
-            console.log(userInfo);
             axiosPublic.post('/users', userInfo)
             setTimeout(()=>{
                 navigate('/')

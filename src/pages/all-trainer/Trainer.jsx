@@ -67,7 +67,7 @@ const Trainer = () => {
                     <p className=" font-sedan font-medium  flex gap-2 items-center rounded-lg"><MdAccessTime className="text-3xl" /> {trainer?.availableTime}</p>
 
                     <h3 className="font-inter font-semibold text-2xl text-red-400">Available Slots:</h3>
-                    <div className="flex gap-1">
+                    <div className="flex flex-wrap gap-1">
                         {
                             slots?.map(slot => <Link to={`/book-slot/${slot._id}`} key={slot?._id}><h3 className="border rounded-lg font-medium bg-red-400 p-4 text-white hover:opacity-50">{slot?.slot}</h3></Link>)
                         }

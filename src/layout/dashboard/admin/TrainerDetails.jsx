@@ -19,7 +19,6 @@ const TrainerDetails = () => {
     const handleAccept = (email) => {
         axiosSecure.patch(`/applied/${email}`)
             .then(res => {
-                console.log(res)
                 if (res?.data?.result?.modifiedCount > 0) {
                     Swal.fire({
                         title: "Good job!",

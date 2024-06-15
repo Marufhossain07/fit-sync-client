@@ -15,7 +15,6 @@ const ActivityLog = () => {
             return data
         }
     })
-    console.log(data);
     if (isLoading) {
         return <Spinner className="mx-auto w-full mt-48" color='failure' aria-label="Extra large spinner example" size="xl" />
     }

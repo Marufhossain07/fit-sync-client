@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 import { MdDelete } from "react-icons/md";
 import { useContext } from "react";
 import { AuthContext } from "../../../auth/AuthProvider";
-
+import Lottie from "react-lottie";
+import animationData from "../../../lottie/empty.json"
 const ManageSlots = () => {
     const axiosSecure = useAxiosSecure()
     const { user } = useContext(AuthContext)
@@ -16,7 +17,14 @@ const ManageSlots = () => {
             return data
         }
     });
-    console.log(data);
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
     const handleDelete = (id,email) => {
         Swal.fire({
             title: "Are you sure?",
@@ -41,7 +49,7 @@ const ManageSlots = () => {
                         }
                     })
             }
-            console.log(id)
+
         });
     }
     if (isLoading) {
@@ -75,6 +83,16 @@ const ManageSlots = () => {
                     </tbody>
 
                 </table>
+                {
+                    data.length === 0 && <div className="w-full">
+                        <Lottie
+                            options={defaultOptions}
+                            height={400}
+                            width={400}
+                        />
+                        <h3 className="text-4xl mb-5 text-center text-red-600 font-semibold">Opps! Nothing to see here!</h3>
+                    </div>
+                }
             </div>
         </div>
     );

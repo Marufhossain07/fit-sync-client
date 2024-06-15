@@ -11,7 +11,6 @@ const useTrainer = () => {
         enabled: !loading && !!user?.email,
         queryFn: async()=>{
             const {data} = await axiosSecure(`/from-users/trainer/${user?.email}`)
-            console.log(data)
             return data?.trainer;
         }
     })

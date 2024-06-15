@@ -22,7 +22,7 @@ const TeamSection = () => {
         <div className="my-10">
             <Heading title={'Meet With Our Experts'} sub={"Our Team"}></Heading>
 
-            <div  className="my-10 flex flex-col md:flex-row lg:flex-row gap-5 justify-around">
+            <div  className="my-10 flex flex-col  lg:flex-row gap-5 justify-around">
                 {
                     data?.slice(0,3).map(trainer => <div key={trainer._id} className="space-y-5 border-2 bg-slate-200 p-5 border-[#003049] rounded-lg">
                         <img className="border h-[550px] mx-auto object-cover border-red-400 rounded-lg" src={trainer?.photo} alt="" />

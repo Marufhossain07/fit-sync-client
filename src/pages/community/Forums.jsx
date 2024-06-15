@@ -6,23 +6,23 @@ import { useNavigate } from "react-router-dom";
 import { toast, Bounce, ToastContainer } from "react-toastify";
 import { BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
 
+
 const Forums = () => {
     const { user } = useContext(AuthContext)
     const axiosPublic = useAxiosPublic()
     const navigate = useNavigate()
     const [count, setCount] = useState(0)
-    const [upVote, setUpVote] = useState(false)
-    const [downVote, setDownVote] = useState(false)
+    const [voteStates, setVoteStates] = useState({ upVote: false , downVote: false})
     const [currentPage, setCurrentPage] = useState(1);
     const [forumPerPage, setForumPerPage] = useState(6)
     const { data } = useQuery({
-        queryKey: ['forums', upVote, currentPage],
+        queryKey: ['forums', currentPage,voteStates],
         queryFn: async () => {
             const { data } = await axiosPublic(`/all-forums?page=${currentPage}&size=${forumPerPage}`)
             return data
         }
     })
-    console.log(data);
+
     const handlePagination = (value) => {
         setCurrentPage(value);
     }
@@ -47,11 +47,16 @@ const Forums = () => {
 
         }
         else {
-            if (!upVote) {
+            const currentVoteState = voteStates[id];
+            if (!currentVoteState) {
                 await axiosPublic.patch(`/forum/upvote/${id}`)
                     .then(res => {
                         if (res.data.modifiedCount > 0) {
-                            setUpVote(true)
+                            setVoteStates({
+                                ...voteStates,
+                                [id]: {upVote: true}
+                                
+                            })
                         }
                     })
                     .catch(error => {
@@ -59,22 +64,40 @@ const Forums = () => {
                     })
             }
             else {
-                await axiosPublic.patch(`/forum/downvote/${id}`)
+                if(currentVoteState.upVote){
+                    await axiosPublic.patch(`/forum/downvote/${id}`)
                     .then(res => {
                         if (res.data.modifiedCount > 0) {
-                            setUpVote(false)
+                            setVoteStates({
+                                ...voteStates,
+                                [id]: {upVote: false }
+                                
+                            })
                         }
                     })
                     .catch(error => {
                         toast.error(error.message)
                     })
+                }
+                else{
+                    await axiosPublic.patch(`/forum/upvote/${id}`)
+                    .then(res => {
+                        if (res.data.modifiedCount > 0) {
+                            setVoteStates({
+                                ...voteStates,
+                                [id]: {upVote: true}
+                                
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        toast.error(error.message)
+                    })
+                }
             }
         }
-
-
-
-
     }
+
     useEffect(() => {
         const getCount = async () => {
             const { data } = await axiosPublic('/forums-count')
@@ -83,7 +106,8 @@ const Forums = () => {
         getCount()
     }, [axiosPublic])
 
-    const handleDownVote = () =>{
+    const handleDownVote = (id) =>{
+
         if (!user) {
             toast.error('Please Login to use this feature', {
                 position: "top-center",
@@ -99,11 +123,50 @@ const Forums = () => {
             setTimeout(() => {
                 navigate('/login')
             }, 2000)
+
         }
         else{
-            setDownVote(!downVote)
+            const currentVoteState = voteStates[id];
+            if(!currentVoteState){
+                setVoteStates({
+                    ...voteStates,
+                    [id]: { downVote: true}
+                    
+                })
+
+            }
+            else{
+                setVoteStates({
+                    ...voteStates,
+                    [id] : { downVote:!currentVoteState.downVote}
+                })
+
+            }
         }
     }
+
+    
+    // const handleDownVote = () =>{
+    //     if (!user) {
+    //         toast.error('Please Login to use this feature', {
+    //             position: "top-center",
+    //             autoClose: 2000,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "light",
+    //             transition: Bounce,
+    //         });
+    //         setTimeout(() => {
+    //             navigate('/login')
+    //         }, 2000)
+    //     }
+    //     // else{
+            
+    //     // }
+    // }
 
     const totalPages = Math.ceil(count / forumPerPage)
     const pages = [...Array(totalPages).keys()].map(element => element + 1)
@@ -126,8 +189,8 @@ const Forums = () => {
 
                                 </div>
                                 <div className="flex">
-                                    <button onClick={() => handleUpVote(forum?._id)} className={`flex bg-white py-1 px-3 rounded-l-full  ${upVote ? 'text-red-400' : 'text-black'} items-center font-medium gap-2`}>{upVote ? <BiSolidUpvote className=" text-lg" /> : <BiUpvote className=" text-lg" />} UpVote - {forum? forum.upvote : 0}</button>
-                                    <button onClick={handleDownVote} className={`flex bg-white py-1 px-3 border-l rounded-r-full ${downVote ? 'text-red-400' : 'text-black'}  items-center gap-2`}>{downVote ? <BiSolidDownvote  className=" text-xl" /> : <BiDownvote className=" text-xl" />}</button>
+                                    <button onClick={() => handleUpVote(forum?._id)} className={`flex bg-white py-1 px-3 rounded-l-full  ${voteStates[forum?._id]?.upVote ? 'text-red-400' : 'text-black'} items-center font-medium gap-2`}>{voteStates[forum?._id]?.upVote ? <BiSolidUpvote className=" text-lg" /> : <BiUpvote className=" text-lg" />} UpVote - {forum? forum.upvote : 0}</button>
+                                    <button onClick={()=>handleDownVote(forum?._id)} className={`flex bg-white py-1 px-3 border-l rounded-r-full ${voteStates[forum?._id]?.downVote ? 'text-red-400' : 'text-black'}  items-center gap-2`}>{voteStates[forum?._id]?.downVote ? <BiSolidDownvote  className=" text-xl" /> : <BiDownvote className=" text-xl" />}</button>
                                 </div>
                             </div>
                         </article>

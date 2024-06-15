@@ -19,7 +19,7 @@ const Newsletter = () => {
             }
         }
         catch (err) {
-            console.log(err)
+            toast.error(err.message)
         }
         }
     return (
@@ -80,7 +80,7 @@ const Newsletter = () => {
             </div>
             <ToastContainer
                 position="top-center"
-                autoClose={4000}
+                autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick

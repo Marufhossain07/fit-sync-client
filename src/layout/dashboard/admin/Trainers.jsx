@@ -37,7 +37,6 @@ const Trainers = () => {
                         }
                     })
             }
-            // console.log(id)
         });
     }
     if (isLoading) {

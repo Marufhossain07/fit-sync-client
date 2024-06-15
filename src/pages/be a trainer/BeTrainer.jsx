@@ -28,7 +28,7 @@ const BeTrainer = () => {
 
         await axiosPublic.post('/trainer', newTrainer)
             .then(res => {
-                console.log(res);
+
                 if (res.data.insertedId) {
                     reset()
                     setSelectedDays([])

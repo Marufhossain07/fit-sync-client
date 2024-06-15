@@ -39,7 +39,6 @@ const Subscribers = () => {
                         }
                     })
             }
-            console.log(id)
         });
     }
     const defaultOptions = {

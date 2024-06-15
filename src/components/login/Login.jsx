@@ -15,7 +15,6 @@ const Login = () => {
 
         signIn(data?.email, data?.pass)
             .then(res => {
-                console.log(res.user.metadata.lastSignInTime)
                 toast('Successfully Sign In. Welcome!')
                 setTimeout(() => {
                     navigate(location?.state ? location.state : '/')
@@ -39,7 +38,7 @@ const Login = () => {
     const handleGoogle = () => {
         googleSignIn()
             .then(res => {
-                console.log(res.user)
+
                 toast('Successfully Sign In. Welcome!')
                 const userInfo = {
                     name: res.user?.displayName,
