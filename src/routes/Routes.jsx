@@ -70,7 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/booking/:_id',
-        element: <Payment></Payment>,
+        element: <PrivateRoute><Payment></Payment></PrivateRoute>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/book-slot/${params._id}`)
       },
       {
@@ -118,24 +118,24 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/activity',
-        element: <ActivityLog></ActivityLog>
+        element: <PrivateRoute><ActivityLog></ActivityLog></PrivateRoute>
       },
       {
         path: '/dashboard/profile',
-        element: <Profile></Profile>
+        element: <PrivateRoute><Profile></Profile></PrivateRoute>
       },
       {
         path: '/dashboard/booked-trainer',
-        element: <BookedTrainerDS></BookedTrainerDS>
+        element: <PrivateRoute><BookedTrainerDS></BookedTrainerDS></PrivateRoute>
       },
       {
         path: '/dashboard/booked-trainer/:email',
-        element: <BookedTrainerDetails></BookedTrainerDetails>,
+        element: <PrivateRoute><BookedTrainerDetails></BookedTrainerDetails></PrivateRoute>,
         loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/trainer/details/${params.email}`)
       },
       {
         path: '/dashboard/balance',
-        element: <Balance></Balance>
+        element: <AdminRoute><Balance></Balance></AdminRoute>
       }
     ]
   }
