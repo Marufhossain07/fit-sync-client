@@ -42,8 +42,13 @@
 
 9. **Notifications and Alerts:**
    - Real-time notifications for important events and updates.
-  
-     ## To Run This Project Locally,follow these steps
+   - Customizable alert settings for users and admins.
+
+10. **API Integration:**
+    - Secure API endpoints for accessing and managing data.
+    - Comprehensive documentation for API usage and integration.
+      
+## To Run This Project Locally,follow these steps
 
 ```sh
 git clone [use my code link]
@@ -54,8 +59,4 @@ npm i
 ```sh
 npm run dev
 ```
-   - Customizable alert settings for users and admins.
-
-10. **API Integration:**
-    - Secure API endpoints for accessing and managing data.
-    - Comprehensive documentation for API usage and integration.
+   -
