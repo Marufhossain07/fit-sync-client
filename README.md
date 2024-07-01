@@ -4,6 +4,8 @@
 **Admin Password:** 123456As@
 **Live Site URL:** [https://fit-sync-f6689.web.app/](https://fit-sync-f6689.web.app/)
 
+**Project Overview:** FitSync is a comprehensive gym management platform featuring secure user authentication, memberships , class and trainer administration, financial tracking, responsive design, and API integration.
+
 ## Features
 
 1. **User Authentication:**
@@ -40,6 +42,18 @@
 
 9. **Notifications and Alerts:**
    - Real-time notifications for important events and updates.
+  
+     ## To Run This Project Locally,follow these steps
+
+```sh
+git clone [use my code link]
+```
+```sh
+npm i
+```
+```sh
+npm run dev
+```
    - Customizable alert settings for users and admins.
 
 10. **API Integration:**
