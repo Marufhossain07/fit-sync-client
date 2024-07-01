@@ -6,7 +6,7 @@
 
 **Project Overview:** FitSync is a comprehensive gym management platform featuring secure user authentication, memberships , class and trainer administration, financial tracking, responsive design, and API integration.
 
-## Best Features
+## Features
 
 1. **User Authentication:**
    - Secure user login and registration system with JWT-based authentication.
