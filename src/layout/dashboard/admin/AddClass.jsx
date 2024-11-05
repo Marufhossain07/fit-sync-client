@@ -20,8 +20,7 @@ const AddClass = () => {
                     timer: 1500
                   });
             }
-            reset()
-            
+            reset() 
         })
         .catch(error=>{
             toast.error(error.message)
